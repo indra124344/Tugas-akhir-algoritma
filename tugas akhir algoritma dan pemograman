@@ -1,0 +1,155 @@
+#include ‹stdio.h>
+#include <string.h>
+int main(){
+printf("Panduan Tugas Akhir Algoritma dan Pemograman");
+}
+// Nama : indra sepraneldi
+// NIM : 12250513207
+
+#define MAX_USERNAME_LENGTH 20
+#define MAX_PASSWORD_LENGTH 20
+#define MAX_BALANCE 1000000
+
+typedef struct {
+    char username[MAX_USERNAME_LENGTH];
+    char password[MAX_PASSWORD_LENGTH];
+    int balance;
+} Akun;
+
+Akun akun;
+
+void welcomeMessage() {
+    printf("Selamat datang di Bank AI (INDRA AJAH)!\n");
+    printf("Silakan login untuk melakukan transaksi.\n");
+}
+
+void login() {
+    char username[MAX_USERNAME_LENGTH];
+    char password[MAX_PASSWORD_LENGTH];
+
+    printf("Masukkan nama pengguna: ");
+    scanf("%s", username);
+
+    printf("Masukkan kata sandi: ");
+    scanf("%s", password);
+
+    if (strcmp(username, akun.username) == 0 && strcmp(password, akun.password) == 0) {
+        printf("Login berhasil!\n");
+    } else {
+        printf("Nama pengguna dan password kamu salah. Silakan coba lagi.\n");
+        login();
+    }
+}
+
+void cekSaldo() {
+    printf("Saldo Anda saat ini adalah: Rp %d\n", akun.balance);
+}
+
+void transfer() {
+    int jumlah;
+    char penerima[MAX_USERNAME_LENGTH];
+
+    printf("Masukkan nama pengguna penerima: ");
+    scanf("%s", penerima);
+
+    printf("Masukkan jumlah yang akan ditransfer: ");
+    scanf("%d", &jumlah);
+
+    if (jumlah > akun.balance) {
+        printf("Saldo kamu tidak cukup.\n");
+    } else {
+        akun.balance -= jumlah;
+        printf("Transfer berhasil!\n");
+    }
+}
+
+void tarikTunai() {
+    int jumlah;
+
+    printf("Masukkan jumlah yang akan ditarik: ");
+    scanf("%d", &jumlah);
+
+    if (jumlah > akun.balance) {
+        printf("Saldo kamu tidak cukup.\n");
+    } else {
+        akun.balance -= jumlah;
+        printf("Penarikan berhasil!\n");
+    }
+}
+
+void setorTunai() {
+    int jumlah;
+
+    printf("Masukkan jumlah yang akan disetor: ");
+    scanf("%d", &jumlah);
+
+    akun.balance += jumlah;
+    printf("Setoran berhasil!\n");
+}
+
+void bayarTagihan() {
+    int jumlah;
+
+    printf("Masukkan jumlah yang akan dibayar: ");
+    scanf("%d", &jumlah);
+
+    if (jumlah > akun.balance) {
+        printf("Saldo kamu tidak cukup.\n");
+    } else {
+        akun.balance -= jumlah;
+        printf("Pembayaran kamu berhasil!\n");
+    }
+}
+
+void menuUtama() {
+    int pilihan;
+
+    printf("Menu ATM:\n");
+    printf("1. Cek Saldo\n");
+    printf("2. Transfer\n");
+    printf("3. Tarik Tunai\n");
+    printf("4. Setor Tunai\n");
+    printf("5. Bayar Tagihan\n");
+    printf("6. Keluar\n");
+
+    printf("Masukkan pilihan Anda: ");
+    scanf("%d", &pilihan);
+
+    switch (pilihan) {
+        case 1:
+            cekSaldo();
+            break;
+        case 2:
+            transfer();
+            break;
+        case 3:
+            tarikTunai();
+            break;
+        case 4:
+            setorTunai();
+            break;
+        case 5:
+            bayarTagihan();
+            break;
+        case 6:
+            printf("Jangan berikan Username dan Password kamu kepada orang lain!\n");
+            return;
+        default:
+            printf("Pilihan tidak valid. Silakan coba lagi.\n");
+            menuUtama();
+    }
+
+    menuUtama();
+}
+
+int main() {
+    welcomeMessage();
+    strcpy(akun.username, "Indra_ajah");
+    strcpy(akun.password, "Indra123pagar");
+    akun.balance = 100000;
+
+    login();
+    menuUtama();
+
+    return 0;
+}
